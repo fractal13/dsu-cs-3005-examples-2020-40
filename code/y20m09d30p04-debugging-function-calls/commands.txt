@@ -1,0 +1,13 @@
+gdb ./main # or whatever your program is called
+(gdb) run
+(gdb) break function_name
+(gdb) break file_name:line_number
+(gdb) continue
+(gdb) next
+(gdb) step
+(gdb) print expression
+(gdb) where
+(gdb) up
+(gdb) down
+(gdb) quit
+
