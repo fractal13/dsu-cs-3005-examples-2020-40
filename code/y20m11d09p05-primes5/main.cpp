@@ -7,6 +7,7 @@
 #include <thread>
 #include <cmath>
 #include <thread>
+#include <exception>
 #include <mutex>
 #include "ThreadedVector.h"
 
@@ -50,7 +51,11 @@ void PrimeHunter::findPrimes() {
   std::vector<std::thread> threads;
 
   for(i = 0; i < mMaxWorkers; i++) {
-    threads.push_back( std::thread(&PrimeHunter::primeWorker, this) );  // this->primeWork()
+    try {
+      threads.push_back( std::thread(&PrimeHunter::primeWorker, this) );  // this->primeWork()
+    } catch (std::exception &e) {
+      std::cerr << "Unable to create thread number " << i << "." << std::endl;
+    }
   }
 
   for(i = 0; i < mMaxWorkers; i++) {
@@ -122,9 +127,13 @@ int main(int argc, const char *argv[]) {
 
   // calculate in one pass, unless the user specified differently in the command line arguments.
   unsigned int max_workers = 1;
+  unsigned int max_threads = std::thread::hardware_concurrency();
   if(argc > 2) {
     std::stringstream ss(argv[2]);
     ss >> max_workers;
+  }
+  if(max_workers > max_threads) {
+    max_workers = max_threads;
   }
 
   // task size
