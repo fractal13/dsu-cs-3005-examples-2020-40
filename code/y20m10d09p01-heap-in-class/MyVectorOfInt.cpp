@@ -26,6 +26,15 @@ const int& MyVectorOfInt::getValue(const int& index) const {
   return mData[index];
 }
 
+const int& MyVectorOfInt::operator[](const int& index) const {
+  return mData[index];
+}
+
+int& MyVectorOfInt::operator[](const int& index) {
+  return mData[index];
+}
+
+
 void MyVectorOfInt::setValue(const int& index, const int& value) {
   if(index >= 0 && index < mSize) {
     mData[index] = value;

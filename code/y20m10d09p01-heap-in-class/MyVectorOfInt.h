@@ -17,6 +17,9 @@ public:
   // fetch a value
   const int& getValue(const int& index) const;
   
+  const int& operator[](const int& index) const;
+  int& operator[](const int& index);
+  
   // set a value
   void setValue(const int& index, const int& value);
   
