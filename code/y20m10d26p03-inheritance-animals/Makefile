@@ -2,7 +2,10 @@ SOURCES := $(wildcard *.cpp)
 SOURCES_NO_MAIN := $(filter-out main.cpp dogs_rule.cpp example2.cpp,$(SOURCES))
 OBJECTS := $(patsubst %.cpp,%.o,$(SOURCES_NO_MAIN))
 TARGETS := main dogs_rule example2
-
+DEBUG := -O2
+#DEBUG := -g
+CXXFLAGS := -Wall -Werror -Wpedantic -std=c++11 $(DEBUG)
+LDFLAGS := -lpthread
 
 all: $(TARGETS)
 
@@ -10,13 +13,13 @@ all: $(TARGETS)
 # $^ is the dependency list
 # target: dependency list
 main: main.o $(OBJECTS)
-	g++ -o $@ $^
+	g++ $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
 
 example2: example2.o $(OBJECTS)
-	g++ -o $@ $^
+	g++ $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
 
 dogs_rule: dogs_rule.o $(OBJECTS)
-	g++ -o $@ $^
+	g++ $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
 
 
 ######################################
